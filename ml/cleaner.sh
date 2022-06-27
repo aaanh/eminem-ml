@@ -1,0 +1,1 @@
+sed -e 's/ /%20/g' -e 's/([^)]*)//g' -e "s/'/%27/g" -e 's/"//g' -e 's/,//g' -e 's/-//g' -e 's/[.]/%2E/g' song_list.csv > song_list_encoded.csv
