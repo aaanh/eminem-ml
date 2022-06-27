@@ -1,27 +1,32 @@
 import requests
 import csv
 
-bow = set()
+bow = []
 lyrics_res = ""
 
 with open('song_list_encoded.csv', 'r', newline='') as f:
     reader = csv.reader(f)
-    
-    song_list = set()
+
+    song_list = []
     # print reader
     for row in reader:
-      song_list.add(row[0])
+        song_list.append(row[0])
 
     for song in song_list:
-      print("Retrieving: " + song)
-      lyrics_res = requests.get('https://api.lyrics.ovh/v1/Eminem/{song}').json()
-      print(lyrics_res)
-      try:
-        bow.add(lyrics_res['lyrics'].split())
-      except:
-        print(f"Lyrics not found for {song}")
-        continue
-    
-print(lyrics_res)
+        print(f"Retrieving: {song}")
 
+        lyrics_res = requests.get(
+            f"https://api.lyrics.ovh/v1/Eminem/{song}")
 
+        if lyrics_res.status_code == 200:
+            lyrics = lyrics_res.json()
+            for word in lyrics['lyrics'].split():
+                bow.append(word)
+        else:
+            print(f"Error: {lyrics_res.status_code}")
+            continue
+
+with open('bow.csv', 'w') as f:
+    for word in bow:
+        f.write(word + "\n")
+    f.close()
