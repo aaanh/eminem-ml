@@ -8,6 +8,7 @@ jupyterlab = "*"
 notebook = "*"
 selenium = "*"
 webdriver-manager = "*"
+nltk = "*"
 
 [dev-packages]
 
