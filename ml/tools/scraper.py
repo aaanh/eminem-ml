@@ -19,6 +19,3 @@ with open('song_list.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     for s in range(len(song_list)):
         writer.writerow([song_list[s]])
-
-# cleanupWithSed = ".\cleanup.sh"
-# subprocess.call(cleanupWithSed, shell=True, cwd="./ml")
